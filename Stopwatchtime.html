@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css" integrity="sha512-3M00D/rn8n+2ZVXBO9Hib0GKNpkm8MSUU/e2VNthDyBYxKWG+BftNYYcuEjXlyrSO637tidzMBXfE7sQm0INUg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        *{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+html,body{
+    font-family:'poppins';
+    background-color: black;
+    color: white;
+}
+.main{ 
+    text-align: center;
+}
+.stopwatch-body{
+    position: relative;
+    max-width: 300px;
+    margin: auto;
+    margin-top: 3rem;
+    height: 300px;
+    border: 1px solid #333;
+    box-shadow: 0 0 12px 5px  #111  inset;
+    border-radius: 100%;
+}
+.stopwatch-inner-body{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+span{
+    margin-right: 0.5rem;
+    font-size: 2.5rem;
+}
+span#milliseconds{
+    margin-left: 2px;
+    font-size: 32px;
+}
+.btn-container{
+    margin-top: 2rem;
+}
+.main button{
+    background-color: #000;
+    color: #fff;
+    padding: 8px 16px;
+    border: 1px solid #333;;
+    border-radius: 8px;
+    margin-right: 1rem;
+    font-size: 18px;
+}
+.main button:hover{
+    background-color: #333;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    margin-right: 1rem;
+    font-size: 18px;
+}
+.footer{
+    text-align: center;
+    margin-top: 3rem;
+}
+.footer i{
+    margin: 0.5rem;
+}
+.footer .social{
+    text-align: center;
+}
+.social i{
+    font-size: 24px;
+    color: #fff;
+}
+    </style>
+    <title>Stopwatch</title>
+</head>
+<body>
+    <div class="main">
+        <div class="stopwatch-body">
+            <div class="stopwatch-inner-body">
+                <span id="hour"></span><span id="minutes"></span><span id="seconds"></span><sup><span id="milliseconds"></span></sup>
+            </div>
+        </div>
+        <div class="btn-container">
+        <button id="stop">Stop</button><button id="start">Start</button><button id="reset">Reset</button><button id="Share">Share</button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Created with <i class="fas fa-heart"></i> by vineeth</p>
+       <div class="social">
+        <a href="https://github.com/vine-1"> <i class="fab fa-github"></i></a>
+        <a href="https://wa.me/+918247301640?text=hi hello this is vineeth"> <i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/vineethuser"> <i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/vin_vineeth_vin/"> <i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/vineeth-058911224/"> <i class="fab fa-linkedin"></i></a>
+       </div>
+    </div>
+    <script>
+            window.onload = function () {
+        
+        var ms = document.querySelector("#milliseconds");
+        var sec = document.querySelector("#seconds");
+        var min = document.querySelector("#minutes");
+        var hr = document.querySelector("#hour");
+    
+        var btnStart = document.querySelector("#start")
+        var btnStop = document.querySelector("#stop")
+        var btnReset = document.querySelector("#reset")
+        var btnShare = document.querySelector("#share")
+        
+        var interval;
+        var seconds = 0;
+        var milliseconds = 0;
+        var minutes = 0
+        var hour = 0;
+    
+        ms.innerHTML = "00";
+        sec.innerHTML = ":00";
+        min.innerHTML =":00";
+        hr.innerHTML = "00";
+    
+        btnStart.onclick = function() {
+            clearInterval(interval);
+            interval = setInterval(start, 10);
+         } 
+    
+         btnStop.onclick = function() {
+            clearInterval(interval);
+         }
+    
+         btnReset.onclick = function() {
+            clearInterval(interval);
+            milliseconds = 0;
+            seconds = 0;
+            minutes= 0;
+            hour= 0;
+            ms.innerHTML = milliseconds + "0";
+            sec.innerHTML = ":" + seconds + "0";
+            min.innerHTML = ":" + minutes + "0";
+            hr.innerHTML = hour + "0";
+         } 
+        
+         function start() {
+            milliseconds++; 
+            
+            if(milliseconds < 9){
+              ms.innerHTML = "0" + milliseconds;
+            }
+      
+            if (milliseconds > 9){
+                ms.innerHTML = milliseconds;
+                
+              } 
+            
+            if (milliseconds > 99) {
+    
+              seconds++;
+              sec.innerHTML = ":0" + seconds;
+              milliseconds = 0;
+              ms.innerHTML = "0" + 0;
+            }
+    
+            if (seconds > 9){
+                sec.innerHTML = ":" + seconds;
+              } 
+    
+            if (seconds > 58) {
+                minutes++;
+                min.innerHTML = ":0" + minutes;
+                seconds = 0;
+                sec.innerHTML = ":0" + seconds;
+            }
+            if (minutes > 9){
+                min.innerHTML = ":" + minutes;
+              } 
+    
+            if (minutes > 58) {
+                hour++;
+                hr.innerHTML = "0" + hour;
+                minutes = 0;
+                min .innerHTML = ":0" + minutes;
+          }
+          if (hour > 9) {
+            hr.innerHTML = hour;
+          }
+    
+        }
+    }
+    
+    </script>
+</body>
+</html>
